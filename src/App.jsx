@@ -7,7 +7,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const [error, setError] = useState('');
 
-  const API_KEY = 'YOUR_STEAM_API_KEY_HERE'; 
+  const API_KEY = '169DF1566DD9F3A0FD12DD8AA1736FFA'; 
   const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
   const fetchStats = async () => {
