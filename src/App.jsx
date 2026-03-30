@@ -3,18 +3,17 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  const [steamId, setSteamId] = useState('');
+  const [steamInput, setSteamInput] = useState('');
   const [stats, setStats] = useState(null);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false); 
-
+  const [loading, setLoading] = useState(false);
 
   const API_KEY = '169DF1566DD9F3A0FD12DD8AA1736FFA'; 
   const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
   const fetchStats = async () => {
-    if (!steamId) {
-      setError('Please enter a valid SteamID64');
+    if (!steamInput) {
+      setError('Please enter a Steam ID or Profile Name');
       return;
     }
 
@@ -23,16 +22,31 @@ function App() {
     setLoading(true);
 
     try {
-      const targetUrl = `http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=${API_KEY}&steamid=${steamId}`;
-      const response = await axios.get(PROXY_URL + targetUrl);
+      let finalSteamId = steamInput.trim();
+
+      if (!/^\d{17}$/.test(finalSteamId)) {
+        const resolveUrl = `${PROXY_URL}http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${API_KEY}&vanityurl=${finalSteamId}`;
+        const resolveRes = await axios.get(resolveUrl);
+
+        if (resolveRes.data && resolveRes.data.response && resolveRes.data.response.success === 1) {
+          finalSteamId = resolveRes.data.response.steamid;
+        } else {
+          setError('Could not find a Steam profile with that name.');
+          setLoading(false);
+          return;
+        }
+      }
+
+      const statsUrl = `${PROXY_URL}http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=${API_KEY}&steamid=${finalSteamId}`;
+      const response = await axios.get(statsUrl);
       
       if (response.data && response.data.playerstats) {
         setStats(response.data.playerstats.stats);
       } else {
-        setError('No CS2 stats found for this Steam ID. Make sure the profile is public.');
+        setError('No CS2 stats found. Make sure the profile is public.');
       }
     } catch (err) {
-      setError('Error fetching data. Please check the Steam ID or API Key.');
+      setError('Error fetching data. Profile might be private or API issue.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -43,14 +57,14 @@ function App() {
     <div className="app-wrapper">
       <div className="app-container">
         <h1 className="title-glow">CS2 Stats Tracker</h1>
-        <p className="subtitle">Enter a SteamID64 to analyze performance</p>
+        <p className="subtitle">Enter SteamID64 or Custom Profile Name</p>
         
         <div className="search-box">
           <input 
             type="text" 
-            placeholder="e.g., 76561198000000000" 
-            value={steamId}
-            onChange={(e) => setSteamId(e.target.value)}
+            placeholder="e.g., 76561198000000000 or s1mple" 
+            value={steamInput}
+            onChange={(e) => setSteamInput(e.target.value)}
           />
           <button onClick={fetchStats} disabled={loading}>
             {loading ? 'Searching...' : 'Search Stats'}
