@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -16,44 +17,45 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Starts from top for scrolling */
-  font-family: 'Poppins', sans-serif;
+  align-items: flex-start;
 }
 
 .app-wrapper {
   width: 100%;
   padding: 40px 20px;
   display: flex;
-  justify-content: center; /* Centers container on laptop */
+  justify-content: center;
+  align-items: center;
 }
 
 .app-container {
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
-  padding: clamp(20px, 5vw, 50px);
+  padding: clamp(20px, 5vw, 45px);
   width: 100%;
-  max-width: 1000px; /* Limits width on big screens */
-  margin: 0 auto; /* Force centering */
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  max-width: 950px;
+  margin: 0 auto;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
 .title-glow {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  font-weight: 800; /* Extra bold for the title */
   color: #ffa500;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 10px;
-  text-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  text-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
 }
 
 .subtitle {
   color: #a0aab2;
   margin-bottom: 35px;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 400;
 }
 
 .search-box {
@@ -61,12 +63,12 @@ body {
   gap: 12px;
   justify-content: center;
   margin: 0 auto 40px auto;
-  max-width: 700px;
+  max-width: 650px;
 }
 
 .search-box input {
   flex: 2;
-  padding: 15px 20px;
+  padding: 14px 20px;
   font-size: 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -82,7 +84,7 @@ body {
 
 .search-box button {
   flex: 1;
-  padding: 15px;
+  padding: 14px;
   font-size: 1rem;
   font-weight: 700;
   border-radius: 12px;
@@ -90,7 +92,7 @@ body {
   background: #ffa500;
   color: #000;
   cursor: pointer;
-  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: 0.3s;
 }
 
 .search-box button:hover:not(:disabled) {
@@ -101,35 +103,38 @@ body {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  gap: 18px;
 }
 
 .stat-card {
   background: rgba(255, 255, 255, 0.03);
-  padding: 20px;
+  padding: 22px;
   border-radius: 16px;
   border-left: 4px solid #ffa500;
   text-align: left;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.06);
+  border-left-color: #00e5ff; /* Blue border on hover */
+  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.1);
 }
 
 .stat-name {
-  font-size: 0.75rem;
-  color: #ffa500;
-  font-weight: 800;
+  font-size: 0.8rem;
+  color: #8b9bb4;
+  font-weight: 600;
+  text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: block;
 }
 
 .stat-value {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: 800; /* Back to bold Poppins */
   color: #ffffff;
 }
 
@@ -139,10 +144,13 @@ body {
   }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 15px;
   }
   .stat-value {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 }
 
