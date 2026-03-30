@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-  background: #0f1014;
+  background: #0b0c10;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(255, 165, 0, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(0, 229, 255, 0.05) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(0, 229, 255, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 123, 255, 0.05) 0px, transparent 50%);
   color: #ffffff;
   min-height: 100vh;
   width: 100%;
@@ -30,29 +30,29 @@ body {
 
 .app-container {
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
   padding: clamp(20px, 5vw, 45px);
   width: 100%;
   max-width: 950px;
   margin: 0 auto;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
   text-align: center;
 }
 
 .title-glow {
   font-size: clamp(1.8rem, 6vw, 3.2rem);
-  font-weight: 800; /* Extra bold for the title */
-  color: #ffa500;
+  font-weight: 800;
+  color: #00e5ff;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: -1px;
   margin-bottom: 8px;
-  text-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
 }
 
 .subtitle {
-  color: #a0aab2;
+  color: #94a3b8;
   margin-bottom: 35px;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   font-weight: 400;
@@ -72,14 +72,15 @@ body {
   font-size: 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   color: white;
   outline: none;
   transition: 0.3s;
 }
 
 .search-box input:focus {
-  border-color: #ffa500;
+  border-color: #00e5ff;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
 }
 
 .search-box button {
@@ -89,28 +90,29 @@ body {
   font-weight: 700;
   border-radius: 12px;
   border: none;
-  background: #ffa500;
+  background: linear-gradient(45deg, #00e5ff, #007bff);
   color: #000;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .search-box button:hover:not(:disabled) {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+  filter: brightness(1.1);
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .stat-card {
   background: rgba(255, 255, 255, 0.03);
   padding: 22px;
   border-radius: 16px;
-  border-left: 4px solid #ffa500;
+  border-left: 4px solid #00e5ff;
   text-align: left;
   transition: 0.3s ease;
 }
@@ -118,23 +120,23 @@ body {
 .stat-card:hover {
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.06);
-  border-left-color: #00e5ff; /* Blue border on hover */
-  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.1);
+  border-left-color: #ffffff;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .stat-name {
-  font-size: 0.8rem;
-  color: #8b9bb4;
+  font-size: 0.75rem;
+  color: #94a3b8;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   margin-bottom: 6px;
   display: block;
 }
 
 .stat-value {
   font-size: 1.8rem;
-  font-weight: 800; /* Back to bold Poppins */
+  font-weight: 700;
   color: #ffffff;
 }
 
@@ -144,13 +146,13 @@ body {
   }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
   }
   .stat-card {
     padding: 15px;
   }
   .stat-value {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -158,7 +160,7 @@ body {
   width: 40px;
   height: 40px;
   border: 4px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #ffa500;
+  border-top-color: #00e5ff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 30px auto;
