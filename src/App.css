@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;800&display=swap');
 
 * {
   box-sizing: border-box;
@@ -9,202 +9,162 @@
 body {
   background: #0f1014;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(255, 165, 0, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(0, 229, 255, 0.1) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(255, 165, 0, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 229, 255, 0.05) 0px, transparent 50%);
   color: #ffffff;
   min-height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; /* Starts from top for scrolling */
   font-family: 'Poppins', sans-serif;
-  overflow-x: hidden;
 }
 
 .app-wrapper {
   width: 100%;
-  padding: 2rem 1rem;
+  padding: 40px 20px;
   display: flex;
-  justify-content: center;
-  animation: fadeIn 0.8s ease-in;
+  justify-content: center; /* Centers container on laptop */
 }
 
 .app-container {
-  width: 100%;
-  max-width: 1100px;
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
-  padding: clamp(1.5rem, 5vw, 3.5rem);
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-  transition: transform 0.3s ease;
+  padding: clamp(20px, 5vw, 50px);
+  width: 100%;
+  max-width: 1000px; /* Limits width on big screens */
+  margin: 0 auto; /* Force centering */
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
 .title-glow {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 8vw, 3.5rem);
-  font-weight: 700;
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
   color: #ffa500;
   text-transform: uppercase;
-  letter-spacing: 4px;
-  margin-bottom: 0.5rem;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
   text-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
 }
 
 .subtitle {
-  color: #8b9bb4;
-  font-size: clamp(0.8rem, 2.5vw, 1rem);
-  margin-bottom: 2.5rem;
-  font-weight: 300;
-  letter-spacing: 1px;
+  color: #a0aab2;
+  margin-bottom: 35px;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
 .search-box {
   display: flex;
   gap: 12px;
-  margin-bottom: 3rem;
-  width: 100%;
+  justify-content: center;
+  margin: 0 auto 40px auto;
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .search-box input {
   flex: 2;
-  padding: 1rem 1.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  color: white;
+  padding: 15px 20px;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  outline: none;
+  transition: 0.3s;
 }
 
 .search-box input:focus {
-  outline: none;
   border-color: #ffa500;
-  box-shadow: 0 0 15px rgba(255, 165, 0, 0.2);
 }
 
 .search-box button {
   flex: 1;
-  padding: 1rem;
-  background: #ffa500;
-  border: none;
-  border-radius: 14px;
-  color: #000;
-  font-weight: 700;
+  padding: 15px;
   font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  background: #ffa500;
+  color: #000;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .search-box button:hover:not(:disabled) {
   transform: scale(1.05);
-  background: #ffb732;
-  box-shadow: 0 0 25px rgba(255, 165, 0, 0.5);
+  box-shadow: 0 0 20px rgba(255, 165, 0, 0.4);
 }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
 
 .stat-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-  padding: 1.5rem;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: #ffa500;
-  transition: width 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  border-left: 4px solid #ffa500;
+  text-align: left;
+  transition: 0.3s;
 }
 
 .stat-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(255, 165, 0, 0.3);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.stat-card:hover::before {
-  width: 100%;
-  opacity: 0.05;
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .stat-name {
   font-size: 0.75rem;
   color: #ffa500;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  letter-spacing: 1.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  display: block;
 }
 
 .stat-value {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #fff;
+  font-size: 1.6rem;
+  color: #ffffff;
 }
 
 @media (max-width: 600px) {
   .search-box {
     flex-direction: column;
   }
-  
-  .search-box button {
-    width: 100%;
-  }
-
   .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
-
-  .stat-card {
-    padding: 1rem;
-  }
-
   .stat-value {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #FFF;
-  border-bottom-color: #ffa500;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #ffa500;
   border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-  margin: 2rem auto;
+  animation: spin 1s linear infinite;
+  margin: 30px auto;
 }
 
-@keyframes rotation {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }

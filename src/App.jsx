@@ -8,7 +8,10 @@ function App() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const fetchStats = async () => {
+  const fetchStats = async (e) => {
+    // Prevent page refresh on form submit
+    if (e) e.preventDefault();
+
     if (!steamInput) {
       setError('Please enter a Steam ID or Profile Name');
       return;
@@ -22,14 +25,12 @@ function App() {
       let url = '';
       const trimmedInput = steamInput.trim();
 
-      // Determine if the input is a SteamID64 or a Custom Name
       if (/^\d{17}$/.test(trimmedInput)) {
         url = `/.netlify/functions/getStats?steamid=${trimmedInput}`;
       } else {
         url = `/.netlify/functions/getStats?vanityurl=${trimmedInput}`;
       }
 
-      // API call to our Netlify Serverless Function
       const response = await axios.get(url);
       
       if (response.data && response.data.playerstats) {
@@ -39,7 +40,6 @@ function App() {
       }
     } catch (err) {
       setError('Error fetching data. Profile might be private or doesn\'t exist.');
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -51,17 +51,18 @@ function App() {
         <h1 className="title-glow">CS2 Stats Tracker</h1>
         <p className="subtitle">Enter SteamID64 or Custom Profile Name</p>
         
-        <div className="search-box">
+        {/* Changed to form to handle Enter key automatically */}
+        <form className="search-box" onSubmit={fetchStats}>
           <input 
             type="text" 
             placeholder="e.g., 76561198000000000 or name" 
             value={steamInput}
             onChange={(e) => setSteamInput(e.target.value)}
           />
-          <button onClick={fetchStats} disabled={loading}>
+          <button type="submit" disabled={loading}>
             {loading ? 'Searching...' : 'Search Stats'}
           </button>
-        </div>
+        </form>
 
         {error && <p className="error-message">{error}</p>}
         {loading && <div className="loader"></div>}
