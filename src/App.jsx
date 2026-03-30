@@ -8,9 +8,6 @@ function App() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = import.meta.env.VITE_STEAM_API_KEY;
-  const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-
   const fetchStats = async () => {
     if (!steamInput) {
       setError('Please enter a Steam ID or Profile Name');
@@ -22,23 +19,18 @@ function App() {
     setLoading(true);
 
     try {
-      let finalSteamId = steamInput.trim();
+      let url = '';
+      const trimmedInput = steamInput.trim();
 
-      if (!/^\d{17}$/.test(finalSteamId)) {
-        const resolveUrl = `${PROXY_URL}http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${API_KEY}&vanityurl=${finalSteamId}`;
-        const resolveRes = await axios.get(resolveUrl);
-
-        if (resolveRes.data && resolveRes.data.response && resolveRes.data.response.success === 1) {
-          finalSteamId = resolveRes.data.response.steamid;
-        } else {
-          setError('Could not find a Steam profile with that name.');
-          setLoading(false);
-          return;
-        }
+      // Determine if the input is a SteamID64 or a Custom Name
+      if (/^\d{17}$/.test(trimmedInput)) {
+        url = `/.netlify/functions/getStats?steamid=${trimmedInput}`;
+      } else {
+        url = `/.netlify/functions/getStats?vanityurl=${trimmedInput}`;
       }
 
-      const statsUrl = `${PROXY_URL}http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=${API_KEY}&steamid=${finalSteamId}`;
-      const response = await axios.get(statsUrl);
+      // API call to our Netlify Serverless Function
+      const response = await axios.get(url);
       
       if (response.data && response.data.playerstats) {
         setStats(response.data.playerstats.stats);
@@ -46,7 +38,7 @@ function App() {
         setError('No CS2 stats found. Make sure the profile is public.');
       }
     } catch (err) {
-      setError('Error fetching data. Profile might be private or API issue.');
+      setError('Error fetching data. Profile might be private or doesn\'t exist.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -62,7 +54,7 @@ function App() {
         <div className="search-box">
           <input 
             type="text" 
-            placeholder="e.g., 76561198000000000 or s1mple" 
+            placeholder="e.g., 76561198000000000 or name" 
             value={steamInput}
             onChange={(e) => setSteamInput(e.target.value)}
           />
