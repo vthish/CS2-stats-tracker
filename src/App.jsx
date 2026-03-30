@@ -9,7 +9,6 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const fetchStats = async (e) => {
-    // Prevent page refresh on form submit
     if (e) e.preventDefault();
 
     if (!steamInput) {
@@ -51,7 +50,6 @@ function App() {
         <h1 className="title-glow">CS2 Stats Tracker</h1>
         <p className="subtitle">Enter SteamID64 or Custom Profile Name</p>
         
-        {/* Changed to form to handle Enter key automatically */}
         <form className="search-box" onSubmit={fetchStats}>
           <input 
             type="text" 
