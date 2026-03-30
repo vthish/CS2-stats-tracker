@@ -8,7 +8,7 @@ function App() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = '169DF1566DD9F3A0FD12DD8AA1736FFA'; 
+  const API_KEY = 'import.meta.env.VITE_STEAM_API_KEY'; 
   const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
   const fetchStats = async () => {
