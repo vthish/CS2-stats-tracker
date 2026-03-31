@@ -92,7 +92,7 @@ function App() {
           <div className="stats-container fade-in">
             <div className="stats-grid">
               
-              <div className="stat-card special-card">
+              <div className="stat-card">
                 <span className="stat-name">Total Playtime</span>
                 <span className="stat-value">{(profilePlaytime / 60).toFixed(1)}h</span>
               </div>
