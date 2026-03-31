@@ -17,12 +17,14 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // 1. Fetch Total Playtime (from Profile)
-    const ownedGamesUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${finalSteamId}&format=json&appids_filter[0]=730`;
+    // Get Total Playtime from Profile Service
+    const ownedGamesUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${finalSteamId}&format=json`;
     const ownedGamesRes = await axios.get(ownedGamesUrl);
-    const playtimeMinutes = ownedGamesRes.data.response.games?.[0]?.playtime_forever || 0;
+    const games = ownedGamesRes.data.response.games || [];
+    const cs2Game = games.find(g => g.appid === 730);
+    const playtimeMinutes = cs2Game ? cs2Game.playtime_forever : 0;
 
-    // 2. Fetch Combat Stats
+    // Get Combat Stats
     const statsUrl = `http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=${API_KEY}&steamid=${finalSteamId}`;
     const statsRes = await axios.get(statsUrl);
 
@@ -30,11 +32,11 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({
-        playtime_forever: playtimeMinutes, // This is in minutes
+        playtime_forever: playtimeMinutes,
         playerstats: statsRes.data.playerstats
       })
     };
   } catch (error) {
-    return { statusCode: 500, body: JSON.stringify({ error: "Failed to fetch data" }) };
+    return { statusCode: 500, body: JSON.stringify({ error: "API Error" }) };
   }
 };
