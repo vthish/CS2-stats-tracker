@@ -70,11 +70,11 @@ body {
   display: flex;
   gap: 12px;
   margin: 30px auto 50px auto;
-  max-width: 750px; /* Wider container */
+  max-width: 750px;
 }
 
 .search-box input {
-  flex: 4; /* Takes 80% space */
+  flex: 4;
   padding: 18px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -90,7 +90,7 @@ body {
 }
 
 .search-box button {
-  flex: 1; /* Takes only 20% space - Shorter button */
+  flex: 1;
   padding: 0 20px;
   border-radius: 16px;
   border: none;
@@ -114,20 +114,26 @@ body {
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   text-align: left;
-  transition: 0.4s;
-  animation: float 5s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  position: relative;
+  overflow: hidden;
+  /* Smooth transition for hover effect */
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  /* Initial state: no border accents */
+  border-left: 4px solid transparent;
+  border-bottom: 4px solid transparent;
 }
 
 .stat-card:hover {
-  background: rgba(30, 41, 59, 0.8);
-  border-color: #8b5cf6;
-  box-shadow: 0 0 25px rgba(139, 92, 246, 0.2);
+  background: rgba(30, 41, 59, 0.7);
+  /* Effect 1: Popup upwards */
+  transform: translateY(-12px); 
+  /* Effect 2: Left and Bottom corner color change */
+  border-left-color: #00e5ff; /* Electric Blue/Cyan for accent */
+  border-bottom-color: #8b5cf6; /* Electric Purple for accent */
+  /* Extra Glow to match colors */
+  box-shadow: 0 15px 35px rgba(139, 92, 246, 0.2);
 }
+/* ========================================= */
 
 .stat-name {
   font-size: 0.75rem;
@@ -140,7 +146,6 @@ body {
 }
 
 .stat-value {
-  /* Font size adjusted to fit long numbers like $3,982,000 */
   font-size: clamp(1.4rem, 4vw, 1.7rem); 
   font-weight: 800;
   color: #f8fafc;
