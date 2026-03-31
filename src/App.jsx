@@ -44,6 +44,13 @@ function App() {
     }
   };
 
+  const formatStatValue = (name, value) => {
+    if (name === 'total_time_played') {
+      return (value / 3600).toFixed(1) + "h";
+    }
+    return value.toLocaleString();
+  };
+
   return (
     <div className="app-wrapper">
       <div className="app-container">
@@ -72,7 +79,7 @@ function App() {
               {stats.slice(0, 15).map((stat, index) => (
                 <div className="stat-card" key={index}>
                   <span className="stat-name">{stat.name.replace(/_/g, ' ').toUpperCase()}</span>
-                  <span className="stat-value">{stat.value.toLocaleString()}</span>
+                  <span className="stat-value">{formatStatValue(stat.name, stat.value)}</span>
                 </div>
               ))}
             </div>
