@@ -53,10 +53,9 @@ function App() {
     }
   };
 
-  const getDisplayPlaytime = () => {
-    if (profilePlaytime > 0) return (profilePlaytime / 60).toFixed(1) + "h";
-    const inGameTime = stats?.find(s => s.name === 'total_time_played')?.value || 0;
-    return inGameTime > 0 ? (inGameTime / 3600).toFixed(1) + "h" : "0.0h";
+  const formatValue = (name, value) => {
+    if (name === 'total_money_earned') return `$${value.toLocaleString()}`;
+    return value.toLocaleString();
   };
 
   return (
@@ -93,10 +92,9 @@ function App() {
           <div className="stats-container fade-in">
             <div className="stats-grid">
               
-              {/* Playtime Card - Now matches the standard look */}
-              <div className="stat-card">
+              <div className="stat-card special-card">
                 <span className="stat-name">Total Playtime</span>
-                <span className="stat-value">{getDisplayPlaytime()}</span>
+                <span className="stat-value">{(profilePlaytime / 60).toFixed(1)}h</span>
               </div>
 
               {stats.slice(0, 15).map((stat, index) => {
@@ -104,7 +102,7 @@ function App() {
                 return (
                   <div className="stat-card" key={index}>
                     <span className="stat-name">{stat.name.replace(/_/g, ' ').toUpperCase()}</span>
-                    <span className="stat-value">{stat.value.toLocaleString()}</span>
+                    <span className="stat-value">{formatValue(stat.name, stat.value)}</span>
                   </div>
                 );
               })}
