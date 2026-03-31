@@ -10,28 +10,18 @@ function App() {
 
   const fetchStats = async (e) => {
     if (e) e.preventDefault();
-
-    if (!steamInput) {
-      setError('Please enter a Steam ID or Profile Name');
-      return;
-    }
-
-    setError('');
-    setStats(null);
-    setLoading(true);
+    if (!steamInput) { setError('Please enter a Steam ID or Profile Name'); return; }
+    setError(''); setStats(null); setLoading(true);
 
     try {
       let url = '';
       const trimmedInput = steamInput.trim();
-
       if (/^\d{17}$/.test(trimmedInput)) {
         url = `/.netlify/functions/getStats?steamid=${trimmedInput}`;
       } else {
         url = `/.netlify/functions/getStats?vanityurl=${trimmedInput}`;
       }
-
       const response = await axios.get(url);
-      
       if (response.data && response.data.playerstats) {
         setStats(response.data.playerstats.stats);
       } else {
@@ -45,27 +35,25 @@ function App() {
   };
 
   const formatStatValue = (name, value) => {
-    if (name === 'total_time_played') {
-      return (value / 3600).toFixed(1) + "h";
-    }
+    if (name === 'total_time_played') return (value / 3600).toFixed(1) + "h";
     return value.toLocaleString();
   };
 
   return (
     <div className="app-wrapper">
       <div className="app-container">
-        <h1 className="title-glow">CS2 Stats Tracker</h1>
-        <p className="subtitle">Enter SteamID64 or Custom Profile Name</p>
+        <h1 className="title-glow">CS2 Tracker</h1>
+        <p className="subtitle">Search player stats instantly</p>
         
         <form className="search-box" onSubmit={fetchStats}>
           <input 
             type="text" 
-            placeholder="e.g., 76561198000000000 or name" 
+            placeholder="SteamID64 or Custom Name" 
             value={steamInput}
             onChange={(e) => setSteamInput(e.target.value)}
           />
           <button type="submit" disabled={loading}>
-            {loading ? 'Searching...' : 'Search Stats'}
+            {loading ? 'Searching...' : 'Search'}
           </button>
         </form>
 
@@ -74,9 +62,8 @@ function App() {
 
         {stats && !loading && (
           <div className="stats-container fade-in">
-            <h2>Combat Statistics</h2>
             <div className="stats-grid">
-              {stats.slice(0, 15).map((stat, index) => (
+              {stats.slice(0, 16).map((stat, index) => (
                 <div className="stat-card" key={index}>
                   <span className="stat-name">{stat.name.replace(/_/g, ' ').toUpperCase()}</span>
                   <span className="stat-value">{formatStatValue(stat.name, stat.value)}</span>
